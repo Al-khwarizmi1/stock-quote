@@ -38,10 +38,11 @@ spec:
               secretKeyRef:
                 name: redis
                 key: url
+                optional: true
           - name: JWT_AUDIENCE
             valueFrom:
               secretKeyRef:
-                name: jwt 
+                name: jwt
                 key: audience
           - name: JWT_ISSUER
             valueFrom:
@@ -74,8 +75,8 @@ spec:
       targetPort: 9443
   selector:
     app: stock-quote
----   
-#Configure the ingress 
+---
+#Configure the ingress
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
