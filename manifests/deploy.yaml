@@ -17,7 +17,6 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: stock-quote
-# namespace: stock-trader
 spec:
   replicas: 1
   template:
@@ -28,10 +27,9 @@ spec:
     spec:
       containers:
       - name: stock-quote
-#       image: stock-quote:latest # Microservice Builder
-#       image: mycluster.icp:8500/stock-trader/stock-quote:latest # IBM Cloud Private
-#       image: registry.ng.bluemix.net/stock_trader/stock-quote:latest # IBM Container Service
         image: ibmstocktrader/stock-quote:latest # DockerHub
+#        image: mycluster.icp:8500/stock-trader/stock-quote:latest # IBM Cloud Private
+#        image: registry.ng.bluemix.net/stock_trader/stock-quote:latest # IBM Kubernetes Service
         env:
           - name: REDIS_URL
             valueFrom:
@@ -59,7 +57,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: stock-quote-service
-# namespace: stock-trader
   labels:
     app: stock-quote
 spec:
@@ -81,9 +78,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: stock-quote-ingress
-# namespace: stock-trader
-  annotations:
-    kubernetes.io/ingress.class: "istio"
 spec:
   rules:
   - http:
